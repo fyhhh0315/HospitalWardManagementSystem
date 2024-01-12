@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fy.mapper.base.DoctorBaseMapper">
+
+
+    <insert id="insertDoctor" >
+        INSERT INTO `doctor`
+        (
+        <trim suffixOverrides=",">
+                    <if test="Dno!=null">
+                        `Dno`,
+                    </if>
+                    <if test="Dpassword!=null">
+                        `Dpassword`,
+                    </if>
+                    <if test="Dname!=null">
+                        `Dname`,
+                    </if>
+                    <if test="Dsex!=null">
+                        `Dsex`,
+                    </if>
+                    <if test="Dtitle!=null">
+                        `Dtitle`,
+                    </if>
+                    <if test="Dage!=null">
+                        `Dage`,
+                    </if>
+                    <if test="Dtel!=null">
+                        `Dtel`,
+                    </if>
+                    <if test="Deptname!=null">
+                        `Deptname`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="Dno!=null">
+                    #{Dno},
+                </if>
+                <if test="Dpassword!=null">
+                    #{Dpassword},
+                </if>
+                <if test="Dname!=null">
+                    #{Dname},
+                </if>
+                <if test="Dsex!=null">
+                    #{Dsex},
+                </if>
+                <if test="Dtitle!=null">
+                    #{Dtitle},
+                </if>
+                <if test="Dage!=null">
+                    #{Dage},
+                </if>
+                <if test="Dtel!=null">
+                    #{Dtel},
+                </if>
+                <if test="Deptname!=null">
+                    #{Deptname},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateDoctor">
+        UPDATE `doctor`
+        SET
+        <trim suffixOverrides=",">
+            <if test="Dpassword != null and Dpassword!=''">
+                `Dpassword` = #{Dpassword},
+            </if>
+            <if test="Dname != null and Dname!=''">
+                `Dname` = #{Dname},
+            </if>
+            <if test="Dsex != null and Dsex!=''">
+                `Dsex` = #{Dsex},
+            </if>
+            <if test="Dtitle != null and Dtitle!=''">
+                `Dtitle` = #{Dtitle},
+            </if>
+            <if test="Dage != null">
+                `Dage` = #{Dage},
+            </if>
+            <if test="Dtel != null and Dtel!=''">
+                `Dtel` = #{Dtel},
+            </if>
+            <if test="Deptname != null and Deptname!=''">
+                `Deptname` = #{Deptname},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `Dno` = #{Dno} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `doctor`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.Dpassword != null and set.Dpassword!=''">
+            `Dpassword` = #{set.Dpassword},
+        </if>
+        <if test="set.Dname != null and set.Dname!=''">
+            `Dname` = #{set.Dname},
+        </if>
+        <if test="set.Dsex != null and set.Dsex!=''">
+            `Dsex` = #{set.Dsex},
+        </if>
+        <if test="set.Dtitle != null and set.Dtitle!=''">
+            `Dtitle` = #{set.Dtitle},
+        </if>
+        <if test="set.Dage != null">
+            `Dage` = #{set.Dage},
+        </if>
+        <if test="set.Dtel != null and set.Dtel!=''">
+            `Dtel` = #{set.Dtel},
+        </if>
+        <if test="set.Deptname != null and set.Deptname!=''">
+            `Deptname` = #{set.Deptname},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.DnoList != null">
+                    `Dno` in
+                    <foreach collection="where.DnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDno!=null and where.fuzzyDno.size()>0">
+                (
+                <foreach collection="where.fuzzyDno"  separator="or" item="item">
+                    `Dno` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDno!=null and where.rightFuzzyDno.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDno"  separator="or" item="item">
+                    `Dno` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DpasswordList != null">
+                    `Dpassword` in
+                    <foreach collection="where.DpasswordList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDpassword!=null and where.fuzzyDpassword.size()>0">
+                (
+                <foreach collection="where.fuzzyDpassword"  separator="or" item="item">
+                    `Dpassword` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDpassword!=null and where.rightFuzzyDpassword.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDpassword"  separator="or" item="item">
+                    `Dpassword` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DnameList != null">
+                    `Dname` in
+                    <foreach collection="where.DnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDname!=null and where.fuzzyDname.size()>0">
+                (
+                <foreach collection="where.fuzzyDname"  separator="or" item="item">
+                    `Dname` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDname!=null and where.rightFuzzyDname.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDname"  separator="or" item="item">
+                    `Dname` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DsexList != null">
+                    `Dsex` in
+                    <foreach collection="where.DsexList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDsex!=null and where.fuzzyDsex.size()>0">
+                (
+                <foreach collection="where.fuzzyDsex"  separator="or" item="item">
+                    `Dsex` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDsex!=null and where.rightFuzzyDsex.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDsex"  separator="or" item="item">
+                    `Dsex` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DtitleList != null">
+                    `Dtitle` in
+                    <foreach collection="where.DtitleList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDtitle!=null and where.fuzzyDtitle.size()>0">
+                (
+                <foreach collection="where.fuzzyDtitle"  separator="or" item="item">
+                    `Dtitle` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDtitle!=null and where.rightFuzzyDtitle.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDtitle"  separator="or" item="item">
+                    `Dtitle` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DageList != null">
+                    `Dage` in
+                    <foreach collection="where.DageList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.DageSt !=null">
+                `Dage` >= #{where.DageSt} and
+            </if>
+            <if test="where.DageEd!=null">
+                `Dage` &lt;= #{where.DageEd} and
+            </if>
+                <if test="where.DtelList != null">
+                    `Dtel` in
+                    <foreach collection="where.DtelList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDtel!=null and where.fuzzyDtel.size()>0">
+                (
+                <foreach collection="where.fuzzyDtel"  separator="or" item="item">
+                    `Dtel` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDtel!=null and where.rightFuzzyDtel.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDtel"  separator="or" item="item">
+                    `Dtel` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DeptnameList != null">
+                    `Deptname` in
+                    <foreach collection="where.DeptnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDeptname!=null and where.fuzzyDeptname.size()>0">
+                (
+                <foreach collection="where.fuzzyDeptname"  separator="or" item="item">
+                    `Deptname` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDeptname!=null and where.rightFuzzyDeptname.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDeptname"  separator="or" item="item">
+                    `Deptname` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.fy.bean.Doctor" id="DoctorMap">
+        <result property="Dno" column="Dno"/>
+        <result property="Dpassword" column="Dpassword"/>
+        <result property="Dname" column="Dname"/>
+        <result property="Dsex" column="Dsex"/>
+        <result property="Dtitle" column="Dtitle"/>
+        <result property="Dage" column="Dage"/>
+        <result property="Dtel" column="Dtel"/>
+        <result property="Deptname" column="Deptname"/>
+    </resultMap>
+
+
+    <select id="queryDoctor" resultMap="DoctorMap">
+        select
+        <include refid="baseResult"></include>
+        from  `doctor`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Dno != null and Dno!=''">
+                `Dno` = #{Dno} and
+            </if>
+            <if test="Dpassword != null and Dpassword!=''">
+                `Dpassword` = #{Dpassword} and
+            </if>
+            <if test="Dname != null and Dname!=''">
+                `Dname` = #{Dname} and
+            </if>
+            <if test="Dsex != null and Dsex!=''">
+                `Dsex` = #{Dsex} and
+            </if>
+            <if test="Dtitle != null and Dtitle!=''">
+                `Dtitle` = #{Dtitle} and
+            </if>
+            <if test="Dage != null">
+                `Dage` = #{Dage} and
+            </if>
+            <if test="Dtel != null and Dtel!=''">
+                `Dtel` = #{Dtel} and
+            </if>
+            <if test="Deptname != null and Deptname!=''">
+                `Deptname` = #{Deptname} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Doctor$QueryBuilder) == true">
+                <if test="DnoList != null">
+                    `Dno` in
+                    <foreach collection="DnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDno!=null and fuzzyDno.size()>0">
+                    (
+                    <foreach collection="fuzzyDno"  separator="or" item="item">
+                        `Dno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDno!=null and rightFuzzyDno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDno"  separator="or" item="item">
+                        `Dno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DpasswordList != null">
+                    `Dpassword` in
+                    <foreach collection="DpasswordList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDpassword!=null and fuzzyDpassword.size()>0">
+                    (
+                    <foreach collection="fuzzyDpassword"  separator="or" item="item">
+                        `Dpassword` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDpassword!=null and rightFuzzyDpassword.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDpassword"  separator="or" item="item">
+                        `Dpassword` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DnameList != null">
+                    `Dname` in
+                    <foreach collection="DnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDname!=null and fuzzyDname.size()>0">
+                    (
+                    <foreach collection="fuzzyDname"  separator="or" item="item">
+                        `Dname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDname!=null and rightFuzzyDname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDname"  separator="or" item="item">
+                        `Dname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DsexList != null">
+                    `Dsex` in
+                    <foreach collection="DsexList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDsex!=null and fuzzyDsex.size()>0">
+                    (
+                    <foreach collection="fuzzyDsex"  separator="or" item="item">
+                        `Dsex` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDsex!=null and rightFuzzyDsex.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDsex"  separator="or" item="item">
+                        `Dsex` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DtitleList != null">
+                    `Dtitle` in
+                    <foreach collection="DtitleList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDtitle!=null and fuzzyDtitle.size()>0">
+                    (
+                    <foreach collection="fuzzyDtitle"  separator="or" item="item">
+                        `Dtitle` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDtitle!=null and rightFuzzyDtitle.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDtitle"  separator="or" item="item">
+                        `Dtitle` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DageList != null">
+                    `Dage` in
+                    <foreach collection="DageList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="DageSt !=null">
+                    `Dage` >= #{DageSt} and
+                </if>
+                <if test="DageEd!=null">
+                    `Dage` &lt;= #{DageEd} and
+                </if>
+                <if test="DtelList != null">
+                    `Dtel` in
+                    <foreach collection="DtelList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDtel!=null and fuzzyDtel.size()>0">
+                    (
+                    <foreach collection="fuzzyDtel"  separator="or" item="item">
+                        `Dtel` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDtel!=null and rightFuzzyDtel.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDtel"  separator="or" item="item">
+                        `Dtel` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DeptnameList != null">
+                    `Deptname` in
+                    <foreach collection="DeptnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDeptname!=null and fuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="fuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDeptname!=null and rightFuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryDoctorLimit1" resultMap="DoctorMap">
+        select
+        <include refid="baseResult"></include>
+        from  `doctor`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Dno != null and Dno!=''">
+                `Dno` = #{Dno} and
+            </if>
+            <if test="Dpassword != null and Dpassword!=''">
+                `Dpassword` = #{Dpassword} and
+            </if>
+            <if test="Dname != null and Dname!=''">
+                `Dname` = #{Dname} and
+            </if>
+            <if test="Dsex != null and Dsex!=''">
+                `Dsex` = #{Dsex} and
+            </if>
+            <if test="Dtitle != null and Dtitle!=''">
+                `Dtitle` = #{Dtitle} and
+            </if>
+            <if test="Dage != null">
+                `Dage` = #{Dage} and
+            </if>
+            <if test="Dtel != null and Dtel!=''">
+                `Dtel` = #{Dtel} and
+            </if>
+            <if test="Deptname != null and Deptname!=''">
+                `Deptname` = #{Deptname} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Doctor$QueryBuilder) == true">
+                    <if test="DnoList != null">
+                        `Dno` in
+                        <foreach collection="DnoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDno!=null and fuzzyDno.size()>0">
+                    (
+                    <foreach collection="fuzzyDno"  separator="or" item="item">
+                        `Dno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDno!=null and rightFuzzyDno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDno"  separator="or" item="item">
+                        `Dno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DpasswordList != null">
+                        `Dpassword` in
+                        <foreach collection="DpasswordList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDpassword!=null and fuzzyDpassword.size()>0">
+                    (
+                    <foreach collection="fuzzyDpassword"  separator="or" item="item">
+                        `Dpassword` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDpassword!=null and rightFuzzyDpassword.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDpassword"  separator="or" item="item">
+                        `Dpassword` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DnameList != null">
+                        `Dname` in
+                        <foreach collection="DnameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDname!=null and fuzzyDname.size()>0">
+                    (
+                    <foreach collection="fuzzyDname"  separator="or" item="item">
+                        `Dname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDname!=null and rightFuzzyDname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDname"  separator="or" item="item">
+                        `Dname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DsexList != null">
+                        `Dsex` in
+                        <foreach collection="DsexList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDsex!=null and fuzzyDsex.size()>0">
+                    (
+                    <foreach collection="fuzzyDsex"  separator="or" item="item">
+                        `Dsex` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDsex!=null and rightFuzzyDsex.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDsex"  separator="or" item="item">
+                        `Dsex` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DtitleList != null">
+                        `Dtitle` in
+                        <foreach collection="DtitleList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDtitle!=null and fuzzyDtitle.size()>0">
+                    (
+                    <foreach collection="fuzzyDtitle"  separator="or" item="item">
+                        `Dtitle` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDtitle!=null and rightFuzzyDtitle.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDtitle"  separator="or" item="item">
+                        `Dtitle` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DageList != null">
+                        `Dage` in
+                        <foreach collection="DageList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="DageSt !=null">
+                    `Dage` >= #{DageSt} and
+                </if>
+                <if test="DageEd!=null">
+                    `Dage` &lt;= #{DageEd} and
+                </if>
+                    <if test="DtelList != null">
+                        `Dtel` in
+                        <foreach collection="DtelList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDtel!=null and fuzzyDtel.size()>0">
+                    (
+                    <foreach collection="fuzzyDtel"  separator="or" item="item">
+                        `Dtel` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDtel!=null and rightFuzzyDtel.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDtel"  separator="or" item="item">
+                        `Dtel` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DeptnameList != null">
+                        `Deptname` in
+                        <foreach collection="DeptnameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDeptname!=null and fuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="fuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDeptname!=null and rightFuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `Dno`,
+        `Dpassword`,
+        `Dname`,
+        `Dsex`,
+        `Dtitle`,
+        `Dage`,
+        `Dtel`,
+        `Deptname`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.fy.bean.Doctor$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.Dno==true">
+                        `Dno`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Dpassword==true">
+                        `Dpassword`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Dname==true">
+                        `Dname`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Dsex==true">
+                        `Dsex`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Dtitle==true">
+                        `Dtitle`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Dage==true">
+                        `Dage`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Dtel==true">
+                        `Dtel`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Deptname==true">
+                        `Deptname`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.Dno==null">
+                        `Dno`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Dpassword==null">
+                        `Dpassword`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Dname==null">
+                        `Dname`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Dsex==null">
+                        `Dsex`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Dtitle==null">
+                        `Dtitle`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Dage==null">
+                        `Dage`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Dtel==null">
+                        `Dtel`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Deptname==null">
+                        `Deptname`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.fy.bean.Doctor$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

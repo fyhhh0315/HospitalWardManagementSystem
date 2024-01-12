@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="10037c1a-ab02-4b32-80f3-39cca4dc1461" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/Hospitalresponse/Alter.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/Hospitalresponse/Register.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fy/bean/Login.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fy/gui/LoginFrame.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fy/gui/admin_frame.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fy/gui/doctor/AlterFrame.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/fy/gui/doctor/RegisterDoctor.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/jdbc.properties" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../Environment/apache-maven-3.6.3" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2ZLveklMHdTRimhCWssIHGn7wyh" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.40633738",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\54008\Desktop\projectpcx\java\HospitalWardManagementSystem\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\54008\Desktop\projectpcx\java\HospitalWardManagementSystem\src\main\java\com\fy\gui\bed" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="MyBatisConfig" />
+      <recent name="" />
+      <recent name="com.fy" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.fy.gui.patient" />
+      <recent name="com.fy" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.test.asdfsd">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InputFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.fy.gui.patient.InputFrame" />
+      <module name="HospitalWardManagementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.fy.gui.patient.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.fy.gui.LoginFrame" />
+      <module name="HospitalWardManagementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.fy.config.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="admin_frame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.fy.gui.admin_frame" />
+      <module name="HospitalWardManagementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.fy.gui.bed.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HospitalWardManagementSystem" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test.asdfsd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HospitalWardManagementSystem" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="test" />
+      <option name="METHOD_NAME" value="asdfsd" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.test.asdfsd" />
+        <item itemvalue="JUnit.test" />
+        <item itemvalue="Application.admin_frame" />
+        <item itemvalue="Application.LoginFrame" />
+        <item itemvalue="Application.InputFrame" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="10037c1a-ab02-4b32-80f3-39cca4dc1461" name="Changes" comment="" />
+      <created>1702214272845</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702214272845</updated>
+      <workItem from="1702214275152" duration="424000" />
+      <workItem from="1704204202674" duration="1868000" />
+      <workItem from="1704382209693" duration="3220000" />
+      <workItem from="1704604215752" duration="4156000" />
+      <workItem from="1704608423077" duration="80000" />
+      <workItem from="1704608511686" duration="2349000" />
+      <workItem from="1704610898439" duration="4000" />
+      <workItem from="1704610990998" duration="32000" />
+      <workItem from="1704611032614" duration="104000" />
+      <workItem from="1704611174079" duration="552000" />
+      <workItem from="1704611773286" duration="2382000" />
+      <workItem from="1704621992423" duration="19594000" />
+      <workItem from="1704684505734" duration="48000" />
+      <workItem from="1704684749027" duration="3891000" />
+      <workItem from="1704778268544" duration="17000" />
+      <workItem from="1704779155792" duration="2907000" />
+      <workItem from="1704800350553" duration="250000" />
+      <workItem from="1704810373681" duration="4049000" />
+      <workItem from="1704887113700" duration="7000" />
+      <workItem from="1704887133654" duration="9983000" />
+      <workItem from="1704897316713" duration="2212000" />
+      <workItem from="1704905631822" duration="175000" />
+      <workItem from="1704905916403" duration="1332000" />
+      <workItem from="1704931833141" duration="16530000" />
+      <workItem from="1704972115505" duration="20942000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/fy/gui/patient/Manage_Patient.java</url>
+          <line>159</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

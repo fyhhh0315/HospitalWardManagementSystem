@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fy.mapper.base.PatientBaseMapper">
+
+
+    <insert id="insertPatient" >
+        INSERT INTO `patient`
+        (
+        <trim suffixOverrides=",">
+                    <if test="Pno!=null">
+                        `Pno`,
+                    </if>
+                    <if test="Pname!=null">
+                        `Pname`,
+                    </if>
+                    <if test="Psex!=null">
+                        `Psex`,
+                    </if>
+                    <if test="Pdiagnose!=null">
+                        `Pdiagnose`,
+                    </if>
+                    <if test="Wno!=null">
+                        `Wno`,
+                    </if>
+                    <if test="Bno!=null">
+                        `Bno`,
+                    </if>
+                    <if test="Dno!=null">
+                        `Dno`,
+                    </if>
+                    <if test="Ptel!=null">
+                        `Ptel`,
+                    </if>
+                    <if test="Pindate!=null">
+                        `Pindate`,
+                    </if>
+                    <if test="Poutdate!=null">
+                        `Poutdate`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="Pno!=null">
+                    #{Pno},
+                </if>
+                <if test="Pname!=null">
+                    #{Pname},
+                </if>
+                <if test="Psex!=null">
+                    #{Psex},
+                </if>
+                <if test="Pdiagnose!=null">
+                    #{Pdiagnose},
+                </if>
+                <if test="Wno!=null">
+                    #{Wno},
+                </if>
+                <if test="Bno!=null">
+                    #{Bno},
+                </if>
+                <if test="Dno!=null">
+                    #{Dno},
+                </if>
+                <if test="Ptel!=null">
+                    #{Ptel},
+                </if>
+                <if test="Pindate!=null">
+                    #{Pindate},
+                </if>
+                <if test="Poutdate!=null">
+                    #{Poutdate},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updatePatient">
+        UPDATE `patient`
+        SET
+        <trim suffixOverrides=",">
+            <if test="Pname != null and Pname!=''">
+                `Pname` = #{Pname},
+            </if>
+            <if test="Psex != null and Psex!=''">
+                `Psex` = #{Psex},
+            </if>
+            <if test="Pdiagnose != null and Pdiagnose!=''">
+                `Pdiagnose` = #{Pdiagnose},
+            </if>
+            <if test="Wno != null and Wno!=''">
+                `Wno` = #{Wno},
+            </if>
+            <if test="Bno != null and Bno!=''">
+                `Bno` = #{Bno},
+            </if>
+            <if test="Dno != null and Dno!=''">
+                `Dno` = #{Dno},
+            </if>
+            <if test="Ptel != null and Ptel!=''">
+                `Ptel` = #{Ptel},
+            </if>
+            <if test="Pindate != null">
+                `Pindate` = #{Pindate},
+            </if>
+            <if test="Poutdate != null">
+                `Poutdate` = #{Poutdate},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `Pno` = #{Pno} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `patient`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.Pname != null and set.Pname!=''">
+            `Pname` = #{set.Pname},
+        </if>
+        <if test="set.Psex != null and set.Psex!=''">
+            `Psex` = #{set.Psex},
+        </if>
+        <if test="set.Pdiagnose != null and set.Pdiagnose!=''">
+            `Pdiagnose` = #{set.Pdiagnose},
+        </if>
+        <if test="set.Wno != null and set.Wno!=''">
+            `Wno` = #{set.Wno},
+        </if>
+        <if test="set.Bno != null and set.Bno!=''">
+            `Bno` = #{set.Bno},
+        </if>
+        <if test="set.Dno != null and set.Dno!=''">
+            `Dno` = #{set.Dno},
+        </if>
+        <if test="set.Ptel != null and set.Ptel!=''">
+            `Ptel` = #{set.Ptel},
+        </if>
+        <if test="set.Pindate != null">
+            `Pindate` = #{set.Pindate},
+        </if>
+        <if test="set.Poutdate != null">
+            `Poutdate` = #{set.Poutdate},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.PnoList != null">
+                    `Pno` in
+                    <foreach collection="where.PnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPno!=null and where.fuzzyPno.size()>0">
+                (
+                <foreach collection="where.fuzzyPno"  separator="or" item="item">
+                    `Pno` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPno!=null and where.rightFuzzyPno.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPno"  separator="or" item="item">
+                    `Pno` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.PnameList != null">
+                    `Pname` in
+                    <foreach collection="where.PnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPname!=null and where.fuzzyPname.size()>0">
+                (
+                <foreach collection="where.fuzzyPname"  separator="or" item="item">
+                    `Pname` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPname!=null and where.rightFuzzyPname.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPname"  separator="or" item="item">
+                    `Pname` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.PsexList != null">
+                    `Psex` in
+                    <foreach collection="where.PsexList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPsex!=null and where.fuzzyPsex.size()>0">
+                (
+                <foreach collection="where.fuzzyPsex"  separator="or" item="item">
+                    `Psex` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPsex!=null and where.rightFuzzyPsex.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPsex"  separator="or" item="item">
+                    `Psex` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.PdiagnoseList != null">
+                    `Pdiagnose` in
+                    <foreach collection="where.PdiagnoseList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPdiagnose!=null and where.fuzzyPdiagnose.size()>0">
+                (
+                <foreach collection="where.fuzzyPdiagnose"  separator="or" item="item">
+                    `Pdiagnose` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPdiagnose!=null and where.rightFuzzyPdiagnose.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPdiagnose"  separator="or" item="item">
+                    `Pdiagnose` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.WnoList != null">
+                    `Wno` in
+                    <foreach collection="where.WnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyWno!=null and where.fuzzyWno.size()>0">
+                (
+                <foreach collection="where.fuzzyWno"  separator="or" item="item">
+                    `Wno` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyWno!=null and where.rightFuzzyWno.size()>0">
+                (
+                <foreach collection="where.rightFuzzyWno"  separator="or" item="item">
+                    `Wno` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.BnoList != null">
+                    `Bno` in
+                    <foreach collection="where.BnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBno!=null and where.fuzzyBno.size()>0">
+                (
+                <foreach collection="where.fuzzyBno"  separator="or" item="item">
+                    `Bno` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBno!=null and where.rightFuzzyBno.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBno"  separator="or" item="item">
+                    `Bno` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DnoList != null">
+                    `Dno` in
+                    <foreach collection="where.DnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDno!=null and where.fuzzyDno.size()>0">
+                (
+                <foreach collection="where.fuzzyDno"  separator="or" item="item">
+                    `Dno` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDno!=null and where.rightFuzzyDno.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDno"  separator="or" item="item">
+                    `Dno` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.PtelList != null">
+                    `Ptel` in
+                    <foreach collection="where.PtelList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPtel!=null and where.fuzzyPtel.size()>0">
+                (
+                <foreach collection="where.fuzzyPtel"  separator="or" item="item">
+                    `Ptel` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPtel!=null and where.rightFuzzyPtel.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPtel"  separator="or" item="item">
+                    `Ptel` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.PindateList != null">
+                    `Pindate` in
+                    <foreach collection="where.PindateList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.PindateSt !=null">
+                `Pindate` >= #{where.PindateSt} and
+            </if>
+            <if test="where.PindateEd!=null">
+                `Pindate` &lt;= #{where.PindateEd} and
+            </if>
+                <if test="where.PoutdateList != null">
+                    `Poutdate` in
+                    <foreach collection="where.PoutdateList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.PoutdateSt !=null">
+                `Poutdate` >= #{where.PoutdateSt} and
+            </if>
+            <if test="where.PoutdateEd!=null">
+                `Poutdate` &lt;= #{where.PoutdateEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.fy.bean.Patient" id="PatientMap">
+        <result property="Pno" column="Pno"/>
+        <result property="Pname" column="Pname"/>
+        <result property="Psex" column="Psex"/>
+        <result property="Pdiagnose" column="Pdiagnose"/>
+        <result property="Wno" column="Wno"/>
+        <result property="Bno" column="Bno"/>
+        <result property="Dno" column="Dno"/>
+        <result property="Ptel" column="Ptel"/>
+        <result property="Pindate" column="Pindate"/>
+        <result property="Poutdate" column="Poutdate"/>
+    </resultMap>
+
+
+    <select id="queryPatient" resultMap="PatientMap">
+        select
+        <include refid="baseResult"></include>
+        from  `patient`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Pno != null and Pno!=''">
+                `Pno` = #{Pno} and
+            </if>
+            <if test="Pname != null and Pname!=''">
+                `Pname` = #{Pname} and
+            </if>
+            <if test="Psex != null and Psex!=''">
+                `Psex` = #{Psex} and
+            </if>
+            <if test="Pdiagnose != null and Pdiagnose!=''">
+                `Pdiagnose` = #{Pdiagnose} and
+            </if>
+            <if test="Wno != null and Wno!=''">
+                `Wno` = #{Wno} and
+            </if>
+            <if test="Bno != null and Bno!=''">
+                `Bno` = #{Bno} and
+            </if>
+            <if test="Dno != null and Dno!=''">
+                `Dno` = #{Dno} and
+            </if>
+            <if test="Ptel != null and Ptel!=''">
+                `Ptel` = #{Ptel} and
+            </if>
+            <if test="Pindate != null">
+                `Pindate` = #{Pindate} and
+            </if>
+            <if test="Poutdate != null">
+                `Poutdate` = #{Poutdate} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Patient$QueryBuilder) == true">
+                <if test="PnoList != null">
+                    `Pno` in
+                    <foreach collection="PnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPno!=null and fuzzyPno.size()>0">
+                    (
+                    <foreach collection="fuzzyPno"  separator="or" item="item">
+                        `Pno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPno!=null and rightFuzzyPno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPno"  separator="or" item="item">
+                        `Pno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="PnameList != null">
+                    `Pname` in
+                    <foreach collection="PnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPname!=null and fuzzyPname.size()>0">
+                    (
+                    <foreach collection="fuzzyPname"  separator="or" item="item">
+                        `Pname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPname!=null and rightFuzzyPname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPname"  separator="or" item="item">
+                        `Pname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="PsexList != null">
+                    `Psex` in
+                    <foreach collection="PsexList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPsex!=null and fuzzyPsex.size()>0">
+                    (
+                    <foreach collection="fuzzyPsex"  separator="or" item="item">
+                        `Psex` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPsex!=null and rightFuzzyPsex.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPsex"  separator="or" item="item">
+                        `Psex` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="PdiagnoseList != null">
+                    `Pdiagnose` in
+                    <foreach collection="PdiagnoseList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPdiagnose!=null and fuzzyPdiagnose.size()>0">
+                    (
+                    <foreach collection="fuzzyPdiagnose"  separator="or" item="item">
+                        `Pdiagnose` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPdiagnose!=null and rightFuzzyPdiagnose.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPdiagnose"  separator="or" item="item">
+                        `Pdiagnose` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="WnoList != null">
+                    `Wno` in
+                    <foreach collection="WnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyWno!=null and fuzzyWno.size()>0">
+                    (
+                    <foreach collection="fuzzyWno"  separator="or" item="item">
+                        `Wno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyWno!=null and rightFuzzyWno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyWno"  separator="or" item="item">
+                        `Wno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="BnoList != null">
+                    `Bno` in
+                    <foreach collection="BnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBno!=null and fuzzyBno.size()>0">
+                    (
+                    <foreach collection="fuzzyBno"  separator="or" item="item">
+                        `Bno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBno!=null and rightFuzzyBno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBno"  separator="or" item="item">
+                        `Bno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DnoList != null">
+                    `Dno` in
+                    <foreach collection="DnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDno!=null and fuzzyDno.size()>0">
+                    (
+                    <foreach collection="fuzzyDno"  separator="or" item="item">
+                        `Dno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDno!=null and rightFuzzyDno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDno"  separator="or" item="item">
+                        `Dno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="PtelList != null">
+                    `Ptel` in
+                    <foreach collection="PtelList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPtel!=null and fuzzyPtel.size()>0">
+                    (
+                    <foreach collection="fuzzyPtel"  separator="or" item="item">
+                        `Ptel` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPtel!=null and rightFuzzyPtel.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPtel"  separator="or" item="item">
+                        `Ptel` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="PindateList != null">
+                    `Pindate` in
+                    <foreach collection="PindateList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="PindateSt !=null">
+                    `Pindate` >= #{PindateSt} and
+                </if>
+                <if test="PindateEd!=null">
+                    `Pindate` &lt;= #{PindateEd} and
+                </if>
+                <if test="PoutdateList != null">
+                    `Poutdate` in
+                    <foreach collection="PoutdateList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="PoutdateSt !=null">
+                    `Poutdate` >= #{PoutdateSt} and
+                </if>
+                <if test="PoutdateEd!=null">
+                    `Poutdate` &lt;= #{PoutdateEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryPatientLimit1" resultMap="PatientMap">
+        select
+        <include refid="baseResult"></include>
+        from  `patient`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Pno != null and Pno!=''">
+                `Pno` = #{Pno} and
+            </if>
+            <if test="Pname != null and Pname!=''">
+                `Pname` = #{Pname} and
+            </if>
+            <if test="Psex != null and Psex!=''">
+                `Psex` = #{Psex} and
+            </if>
+            <if test="Pdiagnose != null and Pdiagnose!=''">
+                `Pdiagnose` = #{Pdiagnose} and
+            </if>
+            <if test="Wno != null and Wno!=''">
+                `Wno` = #{Wno} and
+            </if>
+            <if test="Bno != null and Bno!=''">
+                `Bno` = #{Bno} and
+            </if>
+            <if test="Dno != null and Dno!=''">
+                `Dno` = #{Dno} and
+            </if>
+            <if test="Ptel != null and Ptel!=''">
+                `Ptel` = #{Ptel} and
+            </if>
+            <if test="Pindate != null">
+                `Pindate` = #{Pindate} and
+            </if>
+            <if test="Poutdate != null">
+                `Poutdate` = #{Poutdate} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Patient$QueryBuilder) == true">
+                    <if test="PnoList != null">
+                        `Pno` in
+                        <foreach collection="PnoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPno!=null and fuzzyPno.size()>0">
+                    (
+                    <foreach collection="fuzzyPno"  separator="or" item="item">
+                        `Pno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPno!=null and rightFuzzyPno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPno"  separator="or" item="item">
+                        `Pno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="PnameList != null">
+                        `Pname` in
+                        <foreach collection="PnameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPname!=null and fuzzyPname.size()>0">
+                    (
+                    <foreach collection="fuzzyPname"  separator="or" item="item">
+                        `Pname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPname!=null and rightFuzzyPname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPname"  separator="or" item="item">
+                        `Pname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="PsexList != null">
+                        `Psex` in
+                        <foreach collection="PsexList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPsex!=null and fuzzyPsex.size()>0">
+                    (
+                    <foreach collection="fuzzyPsex"  separator="or" item="item">
+                        `Psex` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPsex!=null and rightFuzzyPsex.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPsex"  separator="or" item="item">
+                        `Psex` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="PdiagnoseList != null">
+                        `Pdiagnose` in
+                        <foreach collection="PdiagnoseList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPdiagnose!=null and fuzzyPdiagnose.size()>0">
+                    (
+                    <foreach collection="fuzzyPdiagnose"  separator="or" item="item">
+                        `Pdiagnose` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPdiagnose!=null and rightFuzzyPdiagnose.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPdiagnose"  separator="or" item="item">
+                        `Pdiagnose` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="WnoList != null">
+                        `Wno` in
+                        <foreach collection="WnoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyWno!=null and fuzzyWno.size()>0">
+                    (
+                    <foreach collection="fuzzyWno"  separator="or" item="item">
+                        `Wno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyWno!=null and rightFuzzyWno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyWno"  separator="or" item="item">
+                        `Wno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="BnoList != null">
+                        `Bno` in
+                        <foreach collection="BnoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBno!=null and fuzzyBno.size()>0">
+                    (
+                    <foreach collection="fuzzyBno"  separator="or" item="item">
+                        `Bno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBno!=null and rightFuzzyBno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBno"  separator="or" item="item">
+                        `Bno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DnoList != null">
+                        `Dno` in
+                        <foreach collection="DnoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDno!=null and fuzzyDno.size()>0">
+                    (
+                    <foreach collection="fuzzyDno"  separator="or" item="item">
+                        `Dno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDno!=null and rightFuzzyDno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDno"  separator="or" item="item">
+                        `Dno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="PtelList != null">
+                        `Ptel` in
+                        <foreach collection="PtelList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPtel!=null and fuzzyPtel.size()>0">
+                    (
+                    <foreach collection="fuzzyPtel"  separator="or" item="item">
+                        `Ptel` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPtel!=null and rightFuzzyPtel.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPtel"  separator="or" item="item">
+                        `Ptel` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="PindateList != null">
+                        `Pindate` in
+                        <foreach collection="PindateList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="PindateSt !=null">
+                    `Pindate` >= #{PindateSt} and
+                </if>
+                <if test="PindateEd!=null">
+                    `Pindate` &lt;= #{PindateEd} and
+                </if>
+                    <if test="PoutdateList != null">
+                        `Poutdate` in
+                        <foreach collection="PoutdateList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="PoutdateSt !=null">
+                    `Poutdate` >= #{PoutdateSt} and
+                </if>
+                <if test="PoutdateEd!=null">
+                    `Poutdate` &lt;= #{PoutdateEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `Pno`,
+        `Pname`,
+        `Psex`,
+        `Pdiagnose`,
+        `Wno`,
+        `Bno`,
+        `Dno`,
+        `Ptel`,
+        `Pindate`,
+        `Poutdate`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.fy.bean.Patient$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.Pno==true">
+                        `Pno`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Pname==true">
+                        `Pname`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Psex==true">
+                        `Psex`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Pdiagnose==true">
+                        `Pdiagnose`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Wno==true">
+                        `Wno`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Bno==true">
+                        `Bno`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Dno==true">
+                        `Dno`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Ptel==true">
+                        `Ptel`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Pindate==true">
+                        `Pindate`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Poutdate==true">
+                        `Poutdate`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.Pno==null">
+                        `Pno`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Pname==null">
+                        `Pname`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Psex==null">
+                        `Psex`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Pdiagnose==null">
+                        `Pdiagnose`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Wno==null">
+                        `Wno`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Bno==null">
+                        `Bno`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Dno==null">
+                        `Dno`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Ptel==null">
+                        `Ptel`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Pindate==null">
+                        `Pindate`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Poutdate==null">
+                        `Poutdate`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.fy.bean.Patient$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

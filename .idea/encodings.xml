@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/fy/gui/bed/Select_Bed.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/fy/gui/department/Manage_Department.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/fy/gui/doctor/Select_Doctor.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/fy/gui/patient/Select_Patient.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/fy/gui/ward/Change_Notion.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/fy/tools/Main.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/fy/tools/leave_cost.java" charset="GBK" />
+    <file url="PROJECT" charset="GBK" />
+  </component>
+</project>

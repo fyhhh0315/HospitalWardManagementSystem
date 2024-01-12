@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fy.mapper.base.PatientFeedbackBaseMapper">
+
+
+    <insert id="insertPatientFeedback"  useGeneratedKeys="true" keyProperty="FeedbackID">
+        INSERT INTO `patient_feedback`
+        (
+        <trim suffixOverrides=",">
+                    <if test="FeedbackID!=null">
+                        `FeedbackID`,
+                    </if>
+                    <if test="PatientID!=null">
+                        `PatientID`,
+                    </if>
+                    <if test="DoctorID!=null">
+                        `DoctorID`,
+                    </if>
+                    <if test="FeedbackContent!=null">
+                        `FeedbackContent`,
+                    </if>
+                    <if test="FeedbackDate!=null">
+                        `FeedbackDate`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="FeedbackID!=null">
+                    #{FeedbackID},
+                </if>
+                <if test="PatientID!=null">
+                    #{PatientID},
+                </if>
+                <if test="DoctorID!=null">
+                    #{DoctorID},
+                </if>
+                <if test="FeedbackContent!=null">
+                    #{FeedbackContent},
+                </if>
+                <if test="FeedbackDate!=null">
+                    #{FeedbackDate},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updatePatientFeedback">
+        UPDATE `patient_feedback`
+        SET
+        <trim suffixOverrides=",">
+            <if test="PatientID != null">
+                `PatientID` = #{PatientID},
+            </if>
+            <if test="DoctorID != null and DoctorID!=''">
+                `DoctorID` = #{DoctorID},
+            </if>
+            <if test="FeedbackContent != null and FeedbackContent!=''">
+                `FeedbackContent` = #{FeedbackContent},
+            </if>
+            <if test="FeedbackDate != null">
+                `FeedbackDate` = #{FeedbackDate},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `FeedbackID` = #{FeedbackID} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `patient_feedback`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.PatientID != null">
+            `PatientID` = #{set.PatientID},
+        </if>
+        <if test="set.DoctorID != null and set.DoctorID!=''">
+            `DoctorID` = #{set.DoctorID},
+        </if>
+        <if test="set.FeedbackContent != null and set.FeedbackContent!=''">
+            `FeedbackContent` = #{set.FeedbackContent},
+        </if>
+        <if test="set.FeedbackDate != null">
+            `FeedbackDate` = #{set.FeedbackDate},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.FeedbackIDList != null">
+                    `FeedbackID` in
+                    <foreach collection="where.FeedbackIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.FeedbackIDSt !=null">
+                `FeedbackID` >= #{where.FeedbackIDSt} and
+            </if>
+            <if test="where.FeedbackIDEd!=null">
+                `FeedbackID` &lt;= #{where.FeedbackIDEd} and
+            </if>
+                <if test="where.PatientIDList != null">
+                    `PatientID` in
+                    <foreach collection="where.PatientIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.PatientIDSt !=null">
+                `PatientID` >= #{where.PatientIDSt} and
+            </if>
+            <if test="where.PatientIDEd!=null">
+                `PatientID` &lt;= #{where.PatientIDEd} and
+            </if>
+                <if test="where.DoctorIDList != null">
+                    `DoctorID` in
+                    <foreach collection="where.DoctorIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDoctorID!=null and where.fuzzyDoctorID.size()>0">
+                (
+                <foreach collection="where.fuzzyDoctorID"  separator="or" item="item">
+                    `DoctorID` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDoctorID!=null and where.rightFuzzyDoctorID.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDoctorID"  separator="or" item="item">
+                    `DoctorID` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.FeedbackContentList != null">
+                    `FeedbackContent` in
+                    <foreach collection="where.FeedbackContentList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyFeedbackContent!=null and where.fuzzyFeedbackContent.size()>0">
+                (
+                <foreach collection="where.fuzzyFeedbackContent"  separator="or" item="item">
+                    `FeedbackContent` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyFeedbackContent!=null and where.rightFuzzyFeedbackContent.size()>0">
+                (
+                <foreach collection="where.rightFuzzyFeedbackContent"  separator="or" item="item">
+                    `FeedbackContent` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.FeedbackDateList != null">
+                    `FeedbackDate` in
+                    <foreach collection="where.FeedbackDateList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.FeedbackDateSt !=null">
+                `FeedbackDate` >= #{where.FeedbackDateSt} and
+            </if>
+            <if test="where.FeedbackDateEd!=null">
+                `FeedbackDate` &lt;= #{where.FeedbackDateEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.fy.model.PatientFeedback" id="PatientFeedbackMap">
+        <result property="FeedbackID" column="FeedbackID"/>
+        <result property="PatientID" column="PatientID"/>
+        <result property="DoctorID" column="DoctorID"/>
+        <result property="FeedbackContent" column="FeedbackContent"/>
+        <result property="FeedbackDate" column="FeedbackDate"/>
+    </resultMap>
+
+
+    <select id="queryPatientFeedback" resultMap="PatientFeedbackMap">
+        select
+        <include refid="baseResult"></include>
+        from  `patient_feedback`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="FeedbackID != null">
+                `FeedbackID` = #{FeedbackID} and
+            </if>
+            <if test="PatientID != null">
+                `PatientID` = #{PatientID} and
+            </if>
+            <if test="DoctorID != null and DoctorID!=''">
+                `DoctorID` = #{DoctorID} and
+            </if>
+            <if test="FeedbackContent != null and FeedbackContent!=''">
+                `FeedbackContent` = #{FeedbackContent} and
+            </if>
+            <if test="FeedbackDate != null">
+                `FeedbackDate` = #{FeedbackDate} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.model.PatientFeedback$QueryBuilder) == true">
+                <if test="FeedbackIDList != null">
+                    `FeedbackID` in
+                    <foreach collection="FeedbackIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="FeedbackIDSt !=null">
+                    `FeedbackID` >= #{FeedbackIDSt} and
+                </if>
+                <if test="FeedbackIDEd!=null">
+                    `FeedbackID` &lt;= #{FeedbackIDEd} and
+                </if>
+                <if test="PatientIDList != null">
+                    `PatientID` in
+                    <foreach collection="PatientIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="PatientIDSt !=null">
+                    `PatientID` >= #{PatientIDSt} and
+                </if>
+                <if test="PatientIDEd!=null">
+                    `PatientID` &lt;= #{PatientIDEd} and
+                </if>
+                <if test="DoctorIDList != null">
+                    `DoctorID` in
+                    <foreach collection="DoctorIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDoctorID!=null and fuzzyDoctorID.size()>0">
+                    (
+                    <foreach collection="fuzzyDoctorID"  separator="or" item="item">
+                        `DoctorID` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDoctorID!=null and rightFuzzyDoctorID.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDoctorID"  separator="or" item="item">
+                        `DoctorID` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="FeedbackContentList != null">
+                    `FeedbackContent` in
+                    <foreach collection="FeedbackContentList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyFeedbackContent!=null and fuzzyFeedbackContent.size()>0">
+                    (
+                    <foreach collection="fuzzyFeedbackContent"  separator="or" item="item">
+                        `FeedbackContent` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyFeedbackContent!=null and rightFuzzyFeedbackContent.size()>0">
+                    (
+                    <foreach collection="rightFuzzyFeedbackContent"  separator="or" item="item">
+                        `FeedbackContent` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="FeedbackDateList != null">
+                    `FeedbackDate` in
+                    <foreach collection="FeedbackDateList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="FeedbackDateSt !=null">
+                    `FeedbackDate` >= #{FeedbackDateSt} and
+                </if>
+                <if test="FeedbackDateEd!=null">
+                    `FeedbackDate` &lt;= #{FeedbackDateEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryPatientFeedbackLimit1" resultMap="PatientFeedbackMap">
+        select
+        <include refid="baseResult"></include>
+        from  `patient_feedback`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="FeedbackID != null">
+                `FeedbackID` = #{FeedbackID} and
+            </if>
+            <if test="PatientID != null">
+                `PatientID` = #{PatientID} and
+            </if>
+            <if test="DoctorID != null and DoctorID!=''">
+                `DoctorID` = #{DoctorID} and
+            </if>
+            <if test="FeedbackContent != null and FeedbackContent!=''">
+                `FeedbackContent` = #{FeedbackContent} and
+            </if>
+            <if test="FeedbackDate != null">
+                `FeedbackDate` = #{FeedbackDate} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.model.PatientFeedback$QueryBuilder) == true">
+                    <if test="FeedbackIDList != null">
+                        `FeedbackID` in
+                        <foreach collection="FeedbackIDList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="FeedbackIDSt !=null">
+                    `FeedbackID` >= #{FeedbackIDSt} and
+                </if>
+                <if test="FeedbackIDEd!=null">
+                    `FeedbackID` &lt;= #{FeedbackIDEd} and
+                </if>
+                    <if test="PatientIDList != null">
+                        `PatientID` in
+                        <foreach collection="PatientIDList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="PatientIDSt !=null">
+                    `PatientID` >= #{PatientIDSt} and
+                </if>
+                <if test="PatientIDEd!=null">
+                    `PatientID` &lt;= #{PatientIDEd} and
+                </if>
+                    <if test="DoctorIDList != null">
+                        `DoctorID` in
+                        <foreach collection="DoctorIDList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDoctorID!=null and fuzzyDoctorID.size()>0">
+                    (
+                    <foreach collection="fuzzyDoctorID"  separator="or" item="item">
+                        `DoctorID` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDoctorID!=null and rightFuzzyDoctorID.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDoctorID"  separator="or" item="item">
+                        `DoctorID` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="FeedbackContentList != null">
+                        `FeedbackContent` in
+                        <foreach collection="FeedbackContentList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyFeedbackContent!=null and fuzzyFeedbackContent.size()>0">
+                    (
+                    <foreach collection="fuzzyFeedbackContent"  separator="or" item="item">
+                        `FeedbackContent` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyFeedbackContent!=null and rightFuzzyFeedbackContent.size()>0">
+                    (
+                    <foreach collection="rightFuzzyFeedbackContent"  separator="or" item="item">
+                        `FeedbackContent` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="FeedbackDateList != null">
+                        `FeedbackDate` in
+                        <foreach collection="FeedbackDateList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="FeedbackDateSt !=null">
+                    `FeedbackDate` >= #{FeedbackDateSt} and
+                </if>
+                <if test="FeedbackDateEd!=null">
+                    `FeedbackDate` &lt;= #{FeedbackDateEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `FeedbackID`,
+        `PatientID`,
+        `DoctorID`,
+        `FeedbackContent`,
+        `FeedbackDate`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.fy.model.PatientFeedback$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.FeedbackID==true">
+                        `FeedbackID`,
+                    </if>
+                    <if test="fetchFields.fetchFields.PatientID==true">
+                        `PatientID`,
+                    </if>
+                    <if test="fetchFields.fetchFields.DoctorID==true">
+                        `DoctorID`,
+                    </if>
+                    <if test="fetchFields.fetchFields.FeedbackContent==true">
+                        `FeedbackContent`,
+                    </if>
+                    <if test="fetchFields.fetchFields.FeedbackDate==true">
+                        `FeedbackDate`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.FeedbackID==null">
+                        `FeedbackID`,
+                    </if>
+                    <if test="fetchFields.excludeFields.PatientID==null">
+                        `PatientID`,
+                    </if>
+                    <if test="fetchFields.excludeFields.DoctorID==null">
+                        `DoctorID`,
+                    </if>
+                    <if test="fetchFields.excludeFields.FeedbackContent==null">
+                        `FeedbackContent`,
+                    </if>
+                    <if test="fetchFields.excludeFields.FeedbackDate==null">
+                        `FeedbackDate`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.fy.model.PatientFeedback$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

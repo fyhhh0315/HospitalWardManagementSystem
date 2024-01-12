@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fy.mapper.base.BedBaseMapper">
+
+
+    <insert id="insertBed" >
+        INSERT INTO `bed`
+        (
+        <trim suffixOverrides=",">
+                    <if test="Wno!=null">
+                        `Wno`,
+                    </if>
+                    <if test="Bno!=null">
+                        `Bno`,
+                    </if>
+                    <if test="Bstate!=null">
+                        `Bstate`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="Wno!=null">
+                    #{Wno},
+                </if>
+                <if test="Bno!=null">
+                    #{Bno},
+                </if>
+                <if test="Bstate!=null">
+                    #{Bstate},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateBed">
+        UPDATE `bed`
+        SET
+        <trim suffixOverrides=",">
+            <if test="Bstate != null and Bstate!=''">
+                `Bstate` = #{Bstate},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `Wno` = #{Wno} and
+                `Bno` = #{Bno} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `bed`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.Bstate != null and set.Bstate!=''">
+            `Bstate` = #{set.Bstate},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.WnoList != null">
+                    `Wno` in
+                    <foreach collection="where.WnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyWno!=null and where.fuzzyWno.size()>0">
+                (
+                <foreach collection="where.fuzzyWno"  separator="or" item="item">
+                    `Wno` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyWno!=null and where.rightFuzzyWno.size()>0">
+                (
+                <foreach collection="where.rightFuzzyWno"  separator="or" item="item">
+                    `Wno` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.BnoList != null">
+                    `Bno` in
+                    <foreach collection="where.BnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBno!=null and where.fuzzyBno.size()>0">
+                (
+                <foreach collection="where.fuzzyBno"  separator="or" item="item">
+                    `Bno` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBno!=null and where.rightFuzzyBno.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBno"  separator="or" item="item">
+                    `Bno` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.BstateList != null">
+                    `Bstate` in
+                    <foreach collection="where.BstateList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyBstate!=null and where.fuzzyBstate.size()>0">
+                (
+                <foreach collection="where.fuzzyBstate"  separator="or" item="item">
+                    `Bstate` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyBstate!=null and where.rightFuzzyBstate.size()>0">
+                (
+                <foreach collection="where.rightFuzzyBstate"  separator="or" item="item">
+                    `Bstate` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.fy.bean.Bed" id="BedMap">
+        <result property="Wno" column="Wno"/>
+        <result property="Bno" column="Bno"/>
+        <result property="Bstate" column="Bstate"/>
+    </resultMap>
+
+
+    <select id="queryBed" resultMap="BedMap">
+        select
+        <include refid="baseResult"></include>
+        from  `bed`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Wno != null and Wno!=''">
+                `Wno` = #{Wno} and
+            </if>
+            <if test="Bno != null and Bno!=''">
+                `Bno` = #{Bno} and
+            </if>
+            <if test="Bstate != null and Bstate!=''">
+                `Bstate` = #{Bstate} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Bed$QueryBuilder) == true">
+                <if test="WnoList != null">
+                    `Wno` in
+                    <foreach collection="WnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyWno!=null and fuzzyWno.size()>0">
+                    (
+                    <foreach collection="fuzzyWno"  separator="or" item="item">
+                        `Wno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyWno!=null and rightFuzzyWno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyWno"  separator="or" item="item">
+                        `Wno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="BnoList != null">
+                    `Bno` in
+                    <foreach collection="BnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBno!=null and fuzzyBno.size()>0">
+                    (
+                    <foreach collection="fuzzyBno"  separator="or" item="item">
+                        `Bno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBno!=null and rightFuzzyBno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBno"  separator="or" item="item">
+                        `Bno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="BstateList != null">
+                    `Bstate` in
+                    <foreach collection="BstateList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyBstate!=null and fuzzyBstate.size()>0">
+                    (
+                    <foreach collection="fuzzyBstate"  separator="or" item="item">
+                        `Bstate` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBstate!=null and rightFuzzyBstate.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBstate"  separator="or" item="item">
+                        `Bstate` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryBedLimit1" resultMap="BedMap">
+        select
+        <include refid="baseResult"></include>
+        from  `bed`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Wno != null and Wno!=''">
+                `Wno` = #{Wno} and
+            </if>
+            <if test="Bno != null and Bno!=''">
+                `Bno` = #{Bno} and
+            </if>
+            <if test="Bstate != null and Bstate!=''">
+                `Bstate` = #{Bstate} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Bed$QueryBuilder) == true">
+                    <if test="WnoList != null">
+                        `Wno` in
+                        <foreach collection="WnoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyWno!=null and fuzzyWno.size()>0">
+                    (
+                    <foreach collection="fuzzyWno"  separator="or" item="item">
+                        `Wno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyWno!=null and rightFuzzyWno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyWno"  separator="or" item="item">
+                        `Wno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="BnoList != null">
+                        `Bno` in
+                        <foreach collection="BnoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBno!=null and fuzzyBno.size()>0">
+                    (
+                    <foreach collection="fuzzyBno"  separator="or" item="item">
+                        `Bno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBno!=null and rightFuzzyBno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBno"  separator="or" item="item">
+                        `Bno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="BstateList != null">
+                        `Bstate` in
+                        <foreach collection="BstateList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyBstate!=null and fuzzyBstate.size()>0">
+                    (
+                    <foreach collection="fuzzyBstate"  separator="or" item="item">
+                        `Bstate` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyBstate!=null and rightFuzzyBstate.size()>0">
+                    (
+                    <foreach collection="rightFuzzyBstate"  separator="or" item="item">
+                        `Bstate` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `Wno`,
+        `Bno`,
+        `Bstate`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.fy.bean.Bed$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.Wno==true">
+                        `Wno`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Bno==true">
+                        `Bno`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Bstate==true">
+                        `Bstate`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.Wno==null">
+                        `Wno`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Bno==null">
+                        `Bno`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Bstate==null">
+                        `Bstate`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.fy.bean.Bed$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

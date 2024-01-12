@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fy.mapper.base.prescriptionsBaseMapper">
+
+
+    <insert id="insertprescriptions"  useGeneratedKeys="true" keyProperty="PrescriptionID">
+        INSERT INTO `prescriptions`
+        (
+        <trim suffixOverrides=",">
+                    <if test="PrescriptionID!=null">
+                        `PrescriptionID`,
+                    </if>
+                    <if test="DoctorID!=null">
+                        `DoctorID`,
+                    </if>
+                    <if test="PatientID!=null">
+                        `PatientID`,
+                    </if>
+                    <if test="PrescriptionDetails!=null">
+                        `PrescriptionDetails`,
+                    </if>
+                    <if test="DateIssued!=null">
+                        `DateIssued`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="PrescriptionID!=null">
+                    #{PrescriptionID},
+                </if>
+                <if test="DoctorID!=null">
+                    #{DoctorID},
+                </if>
+                <if test="PatientID!=null">
+                    #{PatientID},
+                </if>
+                <if test="PrescriptionDetails!=null">
+                    #{PrescriptionDetails},
+                </if>
+                <if test="DateIssued!=null">
+                    #{DateIssued},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateprescriptions">
+        UPDATE `prescriptions`
+        SET
+        <trim suffixOverrides=",">
+            <if test="DoctorID != null and DoctorID!=''">
+                `DoctorID` = #{DoctorID},
+            </if>
+            <if test="PatientID != null and PatientID!=''">
+                `PatientID` = #{PatientID},
+            </if>
+            <if test="PrescriptionDetails != null and PrescriptionDetails!=''">
+                `PrescriptionDetails` = #{PrescriptionDetails},
+            </if>
+            <if test="DateIssued != null">
+                `DateIssued` = #{DateIssued},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `PrescriptionID` = #{PrescriptionID} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `prescriptions`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.DoctorID != null and set.DoctorID!=''">
+            `DoctorID` = #{set.DoctorID},
+        </if>
+        <if test="set.PatientID != null and set.PatientID!=''">
+            `PatientID` = #{set.PatientID},
+        </if>
+        <if test="set.PrescriptionDetails != null and set.PrescriptionDetails!=''">
+            `PrescriptionDetails` = #{set.PrescriptionDetails},
+        </if>
+        <if test="set.DateIssued != null">
+            `DateIssued` = #{set.DateIssued},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.PrescriptionIDList != null">
+                    `PrescriptionID` in
+                    <foreach collection="where.PrescriptionIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.PrescriptionIDSt !=null">
+                `PrescriptionID` >= #{where.PrescriptionIDSt} and
+            </if>
+            <if test="where.PrescriptionIDEd!=null">
+                `PrescriptionID` &lt;= #{where.PrescriptionIDEd} and
+            </if>
+                <if test="where.DoctorIDList != null">
+                    `DoctorID` in
+                    <foreach collection="where.DoctorIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDoctorID!=null and where.fuzzyDoctorID.size()>0">
+                (
+                <foreach collection="where.fuzzyDoctorID"  separator="or" item="item">
+                    `DoctorID` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDoctorID!=null and where.rightFuzzyDoctorID.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDoctorID"  separator="or" item="item">
+                    `DoctorID` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.PatientIDList != null">
+                    `PatientID` in
+                    <foreach collection="where.PatientIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPatientID!=null and where.fuzzyPatientID.size()>0">
+                (
+                <foreach collection="where.fuzzyPatientID"  separator="or" item="item">
+                    `PatientID` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPatientID!=null and where.rightFuzzyPatientID.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPatientID"  separator="or" item="item">
+                    `PatientID` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.PrescriptionDetailsList != null">
+                    `PrescriptionDetails` in
+                    <foreach collection="where.PrescriptionDetailsList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPrescriptionDetails!=null and where.fuzzyPrescriptionDetails.size()>0">
+                (
+                <foreach collection="where.fuzzyPrescriptionDetails"  separator="or" item="item">
+                    `PrescriptionDetails` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPrescriptionDetails!=null and where.rightFuzzyPrescriptionDetails.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPrescriptionDetails"  separator="or" item="item">
+                    `PrescriptionDetails` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DateIssuedList != null">
+                    `DateIssued` in
+                    <foreach collection="where.DateIssuedList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.DateIssuedSt !=null">
+                `DateIssued` >= #{where.DateIssuedSt} and
+            </if>
+            <if test="where.DateIssuedEd!=null">
+                `DateIssued` &lt;= #{where.DateIssuedEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.fy.model.prescriptions" id="prescriptionsMap">
+        <result property="PrescriptionID" column="PrescriptionID"/>
+        <result property="DoctorID" column="DoctorID"/>
+        <result property="PatientID" column="PatientID"/>
+        <result property="PrescriptionDetails" column="PrescriptionDetails"/>
+        <result property="DateIssued" column="DateIssued"/>
+    </resultMap>
+
+
+    <select id="queryprescriptions" resultMap="prescriptionsMap">
+        select
+        <include refid="baseResult"></include>
+        from  `prescriptions`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="PrescriptionID != null">
+                `PrescriptionID` = #{PrescriptionID} and
+            </if>
+            <if test="DoctorID != null and DoctorID!=''">
+                `DoctorID` = #{DoctorID} and
+            </if>
+            <if test="PatientID != null and PatientID!=''">
+                `PatientID` = #{PatientID} and
+            </if>
+            <if test="PrescriptionDetails != null and PrescriptionDetails!=''">
+                `PrescriptionDetails` = #{PrescriptionDetails} and
+            </if>
+            <if test="DateIssued != null">
+                `DateIssued` = #{DateIssued} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.model.prescriptions$QueryBuilder) == true">
+                <if test="PrescriptionIDList != null">
+                    `PrescriptionID` in
+                    <foreach collection="PrescriptionIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="PrescriptionIDSt !=null">
+                    `PrescriptionID` >= #{PrescriptionIDSt} and
+                </if>
+                <if test="PrescriptionIDEd!=null">
+                    `PrescriptionID` &lt;= #{PrescriptionIDEd} and
+                </if>
+                <if test="DoctorIDList != null">
+                    `DoctorID` in
+                    <foreach collection="DoctorIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDoctorID!=null and fuzzyDoctorID.size()>0">
+                    (
+                    <foreach collection="fuzzyDoctorID"  separator="or" item="item">
+                        `DoctorID` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDoctorID!=null and rightFuzzyDoctorID.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDoctorID"  separator="or" item="item">
+                        `DoctorID` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="PatientIDList != null">
+                    `PatientID` in
+                    <foreach collection="PatientIDList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPatientID!=null and fuzzyPatientID.size()>0">
+                    (
+                    <foreach collection="fuzzyPatientID"  separator="or" item="item">
+                        `PatientID` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPatientID!=null and rightFuzzyPatientID.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPatientID"  separator="or" item="item">
+                        `PatientID` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="PrescriptionDetailsList != null">
+                    `PrescriptionDetails` in
+                    <foreach collection="PrescriptionDetailsList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPrescriptionDetails!=null and fuzzyPrescriptionDetails.size()>0">
+                    (
+                    <foreach collection="fuzzyPrescriptionDetails"  separator="or" item="item">
+                        `PrescriptionDetails` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPrescriptionDetails!=null and rightFuzzyPrescriptionDetails.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPrescriptionDetails"  separator="or" item="item">
+                        `PrescriptionDetails` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DateIssuedList != null">
+                    `DateIssued` in
+                    <foreach collection="DateIssuedList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="DateIssuedSt !=null">
+                    `DateIssued` >= #{DateIssuedSt} and
+                </if>
+                <if test="DateIssuedEd!=null">
+                    `DateIssued` &lt;= #{DateIssuedEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryprescriptionsLimit1" resultMap="prescriptionsMap">
+        select
+        <include refid="baseResult"></include>
+        from  `prescriptions`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="PrescriptionID != null">
+                `PrescriptionID` = #{PrescriptionID} and
+            </if>
+            <if test="DoctorID != null and DoctorID!=''">
+                `DoctorID` = #{DoctorID} and
+            </if>
+            <if test="PatientID != null and PatientID!=''">
+                `PatientID` = #{PatientID} and
+            </if>
+            <if test="PrescriptionDetails != null and PrescriptionDetails!=''">
+                `PrescriptionDetails` = #{PrescriptionDetails} and
+            </if>
+            <if test="DateIssued != null">
+                `DateIssued` = #{DateIssued} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.model.prescriptions$QueryBuilder) == true">
+                    <if test="PrescriptionIDList != null">
+                        `PrescriptionID` in
+                        <foreach collection="PrescriptionIDList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="PrescriptionIDSt !=null">
+                    `PrescriptionID` >= #{PrescriptionIDSt} and
+                </if>
+                <if test="PrescriptionIDEd!=null">
+                    `PrescriptionID` &lt;= #{PrescriptionIDEd} and
+                </if>
+                    <if test="DoctorIDList != null">
+                        `DoctorID` in
+                        <foreach collection="DoctorIDList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDoctorID!=null and fuzzyDoctorID.size()>0">
+                    (
+                    <foreach collection="fuzzyDoctorID"  separator="or" item="item">
+                        `DoctorID` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDoctorID!=null and rightFuzzyDoctorID.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDoctorID"  separator="or" item="item">
+                        `DoctorID` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="PatientIDList != null">
+                        `PatientID` in
+                        <foreach collection="PatientIDList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPatientID!=null and fuzzyPatientID.size()>0">
+                    (
+                    <foreach collection="fuzzyPatientID"  separator="or" item="item">
+                        `PatientID` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPatientID!=null and rightFuzzyPatientID.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPatientID"  separator="or" item="item">
+                        `PatientID` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="PrescriptionDetailsList != null">
+                        `PrescriptionDetails` in
+                        <foreach collection="PrescriptionDetailsList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPrescriptionDetails!=null and fuzzyPrescriptionDetails.size()>0">
+                    (
+                    <foreach collection="fuzzyPrescriptionDetails"  separator="or" item="item">
+                        `PrescriptionDetails` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPrescriptionDetails!=null and rightFuzzyPrescriptionDetails.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPrescriptionDetails"  separator="or" item="item">
+                        `PrescriptionDetails` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DateIssuedList != null">
+                        `DateIssued` in
+                        <foreach collection="DateIssuedList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="DateIssuedSt !=null">
+                    `DateIssued` >= #{DateIssuedSt} and
+                </if>
+                <if test="DateIssuedEd!=null">
+                    `DateIssued` &lt;= #{DateIssuedEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `PrescriptionID`,
+        `DoctorID`,
+        `PatientID`,
+        `PrescriptionDetails`,
+        `DateIssued`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.fy.model.prescriptions$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.PrescriptionID==true">
+                        `PrescriptionID`,
+                    </if>
+                    <if test="fetchFields.fetchFields.DoctorID==true">
+                        `DoctorID`,
+                    </if>
+                    <if test="fetchFields.fetchFields.PatientID==true">
+                        `PatientID`,
+                    </if>
+                    <if test="fetchFields.fetchFields.PrescriptionDetails==true">
+                        `PrescriptionDetails`,
+                    </if>
+                    <if test="fetchFields.fetchFields.DateIssued==true">
+                        `DateIssued`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.PrescriptionID==null">
+                        `PrescriptionID`,
+                    </if>
+                    <if test="fetchFields.excludeFields.DoctorID==null">
+                        `DoctorID`,
+                    </if>
+                    <if test="fetchFields.excludeFields.PatientID==null">
+                        `PatientID`,
+                    </if>
+                    <if test="fetchFields.excludeFields.PrescriptionDetails==null">
+                        `PrescriptionDetails`,
+                    </if>
+                    <if test="fetchFields.excludeFields.DateIssued==null">
+                        `DateIssued`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.fy.model.prescriptions$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

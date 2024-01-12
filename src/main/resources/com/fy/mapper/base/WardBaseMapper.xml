@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fy.mapper.base.WardBaseMapper">
+
+
+    <insert id="insertWard" >
+        INSERT INTO `ward`
+        (
+        <trim suffixOverrides=",">
+                    <if test="Wno!=null">
+                        `Wno`,
+                    </if>
+                    <if test="Deptname!=null">
+                        `Deptname`,
+                    </if>
+                    <if test="Wcharge!=null">
+                        `Wcharge`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="Wno!=null">
+                    #{Wno},
+                </if>
+                <if test="Deptname!=null">
+                    #{Deptname},
+                </if>
+                <if test="Wcharge!=null">
+                    #{Wcharge},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateWard">
+        UPDATE `ward`
+        SET
+        <trim suffixOverrides=",">
+            <if test="Deptname != null and Deptname!=''">
+                `Deptname` = #{Deptname},
+            </if>
+            <if test="Wcharge != null">
+                `Wcharge` = #{Wcharge},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `Wno` = #{Wno} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `ward`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.Deptname != null and set.Deptname!=''">
+            `Deptname` = #{set.Deptname},
+        </if>
+        <if test="set.Wcharge != null">
+            `Wcharge` = #{set.Wcharge},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.WnoList != null">
+                    `Wno` in
+                    <foreach collection="where.WnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyWno!=null and where.fuzzyWno.size()>0">
+                (
+                <foreach collection="where.fuzzyWno"  separator="or" item="item">
+                    `Wno` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyWno!=null and where.rightFuzzyWno.size()>0">
+                (
+                <foreach collection="where.rightFuzzyWno"  separator="or" item="item">
+                    `Wno` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DeptnameList != null">
+                    `Deptname` in
+                    <foreach collection="where.DeptnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDeptname!=null and where.fuzzyDeptname.size()>0">
+                (
+                <foreach collection="where.fuzzyDeptname"  separator="or" item="item">
+                    `Deptname` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDeptname!=null and where.rightFuzzyDeptname.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDeptname"  separator="or" item="item">
+                    `Deptname` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.WchargeList != null">
+                    `Wcharge` in
+                    <foreach collection="where.WchargeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.WchargeSt !=null">
+                `Wcharge` >= #{where.WchargeSt} and
+            </if>
+            <if test="where.WchargeEd!=null">
+                `Wcharge` &lt;= #{where.WchargeEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.fy.bean.Ward" id="WardMap">
+        <result property="Wno" column="Wno"/>
+        <result property="Deptname" column="Deptname"/>
+        <result property="Wcharge" column="Wcharge"/>
+    </resultMap>
+
+
+    <select id="queryWard" resultMap="WardMap">
+        select
+        <include refid="baseResult"></include>
+        from  `ward`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Wno != null and Wno!=''">
+                `Wno` = #{Wno} and
+            </if>
+            <if test="Deptname != null and Deptname!=''">
+                `Deptname` = #{Deptname} and
+            </if>
+            <if test="Wcharge != null">
+                `Wcharge` = #{Wcharge} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Ward$QueryBuilder) == true">
+                <if test="WnoList != null">
+                    `Wno` in
+                    <foreach collection="WnoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyWno!=null and fuzzyWno.size()>0">
+                    (
+                    <foreach collection="fuzzyWno"  separator="or" item="item">
+                        `Wno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyWno!=null and rightFuzzyWno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyWno"  separator="or" item="item">
+                        `Wno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DeptnameList != null">
+                    `Deptname` in
+                    <foreach collection="DeptnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDeptname!=null and fuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="fuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDeptname!=null and rightFuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="WchargeList != null">
+                    `Wcharge` in
+                    <foreach collection="WchargeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="WchargeSt !=null">
+                    `Wcharge` >= #{WchargeSt} and
+                </if>
+                <if test="WchargeEd!=null">
+                    `Wcharge` &lt;= #{WchargeEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryWardLimit1" resultMap="WardMap">
+        select
+        <include refid="baseResult"></include>
+        from  `ward`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Wno != null and Wno!=''">
+                `Wno` = #{Wno} and
+            </if>
+            <if test="Deptname != null and Deptname!=''">
+                `Deptname` = #{Deptname} and
+            </if>
+            <if test="Wcharge != null">
+                `Wcharge` = #{Wcharge} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Ward$QueryBuilder) == true">
+                    <if test="WnoList != null">
+                        `Wno` in
+                        <foreach collection="WnoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyWno!=null and fuzzyWno.size()>0">
+                    (
+                    <foreach collection="fuzzyWno"  separator="or" item="item">
+                        `Wno` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyWno!=null and rightFuzzyWno.size()>0">
+                    (
+                    <foreach collection="rightFuzzyWno"  separator="or" item="item">
+                        `Wno` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DeptnameList != null">
+                        `Deptname` in
+                        <foreach collection="DeptnameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDeptname!=null and fuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="fuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDeptname!=null and rightFuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="WchargeList != null">
+                        `Wcharge` in
+                        <foreach collection="WchargeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="WchargeSt !=null">
+                    `Wcharge` >= #{WchargeSt} and
+                </if>
+                <if test="WchargeEd!=null">
+                    `Wcharge` &lt;= #{WchargeEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `Wno`,
+        `Deptname`,
+        `Wcharge`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.fy.bean.Ward$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.Wno==true">
+                        `Wno`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Deptname==true">
+                        `Deptname`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Wcharge==true">
+                        `Wcharge`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.Wno==null">
+                        `Wno`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Deptname==null">
+                        `Deptname`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Wcharge==null">
+                        `Wcharge`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.fy.bean.Ward$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

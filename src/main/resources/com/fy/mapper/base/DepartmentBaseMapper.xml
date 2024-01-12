@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fy.mapper.base.DepartmentBaseMapper">
+
+
+    <insert id="insertDepartment" >
+        INSERT INTO `department`
+        (
+        <trim suffixOverrides=",">
+                    <if test="Deptname!=null">
+                        `Deptname`,
+                    </if>
+                    <if test="Deptaddress!=null">
+                        `Deptaddress`,
+                    </if>
+                    <if test="Depttel!=null">
+                        `Depttel`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="Deptname!=null">
+                    #{Deptname},
+                </if>
+                <if test="Deptaddress!=null">
+                    #{Deptaddress},
+                </if>
+                <if test="Depttel!=null">
+                    #{Depttel},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateDepartment">
+        UPDATE `department`
+        SET
+        <trim suffixOverrides=",">
+            <if test="Deptaddress != null and Deptaddress!=''">
+                `Deptaddress` = #{Deptaddress},
+            </if>
+            <if test="Depttel != null and Depttel!=''">
+                `Depttel` = #{Depttel},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `Deptname` = #{Deptname} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `department`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.Deptaddress != null and set.Deptaddress!=''">
+            `Deptaddress` = #{set.Deptaddress},
+        </if>
+        <if test="set.Depttel != null and set.Depttel!=''">
+            `Depttel` = #{set.Depttel},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.DeptnameList != null">
+                    `Deptname` in
+                    <foreach collection="where.DeptnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDeptname!=null and where.fuzzyDeptname.size()>0">
+                (
+                <foreach collection="where.fuzzyDeptname"  separator="or" item="item">
+                    `Deptname` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDeptname!=null and where.rightFuzzyDeptname.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDeptname"  separator="or" item="item">
+                    `Deptname` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DeptaddressList != null">
+                    `Deptaddress` in
+                    <foreach collection="where.DeptaddressList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDeptaddress!=null and where.fuzzyDeptaddress.size()>0">
+                (
+                <foreach collection="where.fuzzyDeptaddress"  separator="or" item="item">
+                    `Deptaddress` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDeptaddress!=null and where.rightFuzzyDeptaddress.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDeptaddress"  separator="or" item="item">
+                    `Deptaddress` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.DepttelList != null">
+                    `Depttel` in
+                    <foreach collection="where.DepttelList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyDepttel!=null and where.fuzzyDepttel.size()>0">
+                (
+                <foreach collection="where.fuzzyDepttel"  separator="or" item="item">
+                    `Depttel` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyDepttel!=null and where.rightFuzzyDepttel.size()>0">
+                (
+                <foreach collection="where.rightFuzzyDepttel"  separator="or" item="item">
+                    `Depttel` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.fy.bean.Department" id="DepartmentMap">
+        <result property="Deptname" column="Deptname"/>
+        <result property="Deptaddress" column="Deptaddress"/>
+        <result property="Depttel" column="Depttel"/>
+    </resultMap>
+
+
+    <select id="queryDepartment" resultMap="DepartmentMap">
+        select
+        <include refid="baseResult"></include>
+        from  `department`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Deptname != null and Deptname!=''">
+                `Deptname` = #{Deptname} and
+            </if>
+            <if test="Deptaddress != null and Deptaddress!=''">
+                `Deptaddress` = #{Deptaddress} and
+            </if>
+            <if test="Depttel != null and Depttel!=''">
+                `Depttel` = #{Depttel} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Department$QueryBuilder) == true">
+                <if test="DeptnameList != null">
+                    `Deptname` in
+                    <foreach collection="DeptnameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDeptname!=null and fuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="fuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDeptname!=null and rightFuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DeptaddressList != null">
+                    `Deptaddress` in
+                    <foreach collection="DeptaddressList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDeptaddress!=null and fuzzyDeptaddress.size()>0">
+                    (
+                    <foreach collection="fuzzyDeptaddress"  separator="or" item="item">
+                        `Deptaddress` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDeptaddress!=null and rightFuzzyDeptaddress.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDeptaddress"  separator="or" item="item">
+                        `Deptaddress` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="DepttelList != null">
+                    `Depttel` in
+                    <foreach collection="DepttelList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyDepttel!=null and fuzzyDepttel.size()>0">
+                    (
+                    <foreach collection="fuzzyDepttel"  separator="or" item="item">
+                        `Depttel` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDepttel!=null and rightFuzzyDepttel.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDepttel"  separator="or" item="item">
+                        `Depttel` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryDepartmentLimit1" resultMap="DepartmentMap">
+        select
+        <include refid="baseResult"></include>
+        from  `department`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="Deptname != null and Deptname!=''">
+                `Deptname` = #{Deptname} and
+            </if>
+            <if test="Deptaddress != null and Deptaddress!=''">
+                `Deptaddress` = #{Deptaddress} and
+            </if>
+            <if test="Depttel != null and Depttel!=''">
+                `Depttel` = #{Depttel} and
+            </if>
+            <if test = "(_parameter instanceof com.fy.bean.Department$QueryBuilder) == true">
+                    <if test="DeptnameList != null">
+                        `Deptname` in
+                        <foreach collection="DeptnameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDeptname!=null and fuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="fuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDeptname!=null and rightFuzzyDeptname.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDeptname"  separator="or" item="item">
+                        `Deptname` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DeptaddressList != null">
+                        `Deptaddress` in
+                        <foreach collection="DeptaddressList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDeptaddress!=null and fuzzyDeptaddress.size()>0">
+                    (
+                    <foreach collection="fuzzyDeptaddress"  separator="or" item="item">
+                        `Deptaddress` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDeptaddress!=null and rightFuzzyDeptaddress.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDeptaddress"  separator="or" item="item">
+                        `Deptaddress` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="DepttelList != null">
+                        `Depttel` in
+                        <foreach collection="DepttelList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyDepttel!=null and fuzzyDepttel.size()>0">
+                    (
+                    <foreach collection="fuzzyDepttel"  separator="or" item="item">
+                        `Depttel` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyDepttel!=null and rightFuzzyDepttel.size()>0">
+                    (
+                    <foreach collection="rightFuzzyDepttel"  separator="or" item="item">
+                        `Depttel` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `Deptname`,
+        `Deptaddress`,
+        `Depttel`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.fy.bean.Department$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.Deptname==true">
+                        `Deptname`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Deptaddress==true">
+                        `Deptaddress`,
+                    </if>
+                    <if test="fetchFields.fetchFields.Depttel==true">
+                        `Depttel`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.Deptname==null">
+                        `Deptname`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Deptaddress==null">
+                        `Deptaddress`,
+                    </if>
+                    <if test="fetchFields.excludeFields.Depttel==null">
+                        `Depttel`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.fy.bean.Department$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>
